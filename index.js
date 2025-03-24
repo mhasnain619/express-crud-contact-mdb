@@ -34,6 +34,16 @@ app.get('/show-contact/:id', async (req, res) => {
 app.get('/add-contact', (req, res) => {
     res.render('addContact')
 })
+app.post('/add-contact', async (req, res) => {
+    const contactDetails = await Contact.insertOne({
+        first_name: req.body.first_name,
+        last_name: req.body.last_name,
+        email: req.body.email,
+        phone: req.body.phone,
+        address: req.body.address,
+    })
+    res.send(contactDetails)
+})
 app.post('/show-contact', (req, res) => {
     res.send('Hello World')
 })
