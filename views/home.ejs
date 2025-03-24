@@ -18,7 +18,7 @@
                             <table class="table table-striped table-hover">
                                 <thead>
                                     <tr>
-                                        <th scope="col">#</th>
+                                        <th scope="col">Id</th>
                                         <th scope="col">First Name</th>
                                         <th scope="col">Last Name</th>
                                         <th scope="col">Email</th>
@@ -29,7 +29,9 @@
                                 <tbody>
                                     <% contacts.forEach(contact=>{%>
                                         <tr>
-                                            <td>1</td>
+                                            <td>
+                                                <%= contact.id.slice(0,8) %>
+                                            </td>
                                             <td>
                                                 <%= contact.first_name %>
                                             </td>

@@ -23,36 +23,32 @@ app.listen(PORT, () => {
 
 app.get('/', async (req, res) => {
     const contacts = await Contact.find()
-    // res.json(contacts)
     res.render('home', { contacts })
 })
 app.get('/show-contact/:id', async (req, res) => {
     const contact = await Contact.findById(req.params.id)
-    // res.json(contacts)
     res.render('showContact', { contact })
 })
 app.get('/add-contact', (req, res) => {
     res.render('addContact')
 })
 app.post('/add-contact', async (req, res) => {
-    const contactDetails = await Contact.insertOne({
-        first_name: req.body.first_name,
-        last_name: req.body.last_name,
-        email: req.body.email,
-        phone: req.body.phone,
-        address: req.body.address,
-    })
-    res.send(contactDetails)
+    await Contact.create(req.body)
+    res.redirect('/')
 })
 app.post('/show-contact', (req, res) => {
     res.send('Hello World')
 })
-app.get('/update-contact/:id', (req, res) => {
-    res.render('updateContact')
+app.get('/update-contact/:id', async (req, res) => {
+    const contact = await Contact.findById(req.params.id)
+    res.render('updateContact', { contact })
 })
-app.post('/update-contact/:id', (req, res) => {
-    res.send('Hello World')
+app.post('/update-contact/:id', async (req, res) => {
+    await Contact.findByIdAndUpdate(req.params.id, req.body)
+    res.redirect('/')
+
 })
-app.get('/delete-contact/:id', (req, res) => {
-    res.send('Hello World')
+app.get('/delete-contact/:id', async (req, res) => {
+    await Contact.findByIdAndDelete(req.params.id, req.body)
+    res.redirect('/')
 })
