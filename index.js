@@ -26,8 +26,10 @@ app.get('/', async (req, res) => {
     // res.json(contacts)
     res.render('home', { contacts })
 })
-app.get('/show-contact/:id', (req, res) => {
-    res.render('showContact')
+app.get('/show-contact/:id', async (req, res) => {
+    const contact = await Contact.findById(req.params.id)
+    // res.json(contacts)
+    res.render('showContact', { contact })
 })
 app.get('/add-contact', (req, res) => {
     res.render('addContact')
